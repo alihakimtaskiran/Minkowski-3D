@@ -57,6 +57,20 @@ class Entity(object):
                 for j in range(3):
                     path[i][j]=content.io[0][j]+ds[j]*i
             self.__dots=np.concatenate((self.__dots, path),0)
+        elif type(content) in {set, list, tuple}:
+            for part in content:
+                for i in range(2):
+                    for j in range(3):
+                        if part.io[i][j]>self.__max_scalar:
+                            print("ok")
+                            self.__max_scalar=part.io[i][j]
+                self.__colors=np.concatenate((self.__colors,np.array((part.color,)*1000)),0)
+                ds=tuple([part.delta[i]/1000 for i in range(3)])
+                path=np.zeros((1000,3))
+                for i in range(1000):
+                    for j in range(3):
+                        path[i][j]=part.io[0][j]+ds[j]*i
+                self.__dots=np.concatenate((self.__dots, path),0)
             
     def render(self):
         _=self.__max_scalar*1.25
