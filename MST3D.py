@@ -49,7 +49,6 @@ class Entity(object):
             for i in range(2):
                 for j in range(3):
                     if content.io[i][j]>self.__max_scalar:
-                        print("ok")
                         self.__max_scalar=content.io[i][j]
             self.__colors=np.concatenate((self.__colors,np.array((content.color,)*1000)),0)
             ds=tuple([content.delta[i]/1000 for i in range(3)])
@@ -64,12 +63,12 @@ class Entity(object):
         __=self.__max_scalar/800
         ___=__*1000
         ____=_/2
-        self.__dots=np.concatenate((self.__dots, np.array([(__*i, 0, 0) for i in range(0,1000)]+[(0,__*i, 0) for i in range(0,1000)]+[(0, 0, __*i) for i in range(0,1000)])),0)
+        self.__dots=np.concatenate((self.__dots, np.array([(__*i, 0, 0) for i in range(-1000,1000)]+[(0,__*i, 0) for i in range(-1000,1000)]+[(0, 0, __*i) for i in range(0,1000)])),0)
         self.__dots=np.concatenate((self.__dots, np.array([(_*np.cos(i*.006283185),_*np.sin(i*.006283185),_) for i in range(1000)])),0)
         self.__dots=np.concatenate((self.__dots, np.array([(____*np.cos(i*.006283185),____*np.sin(i*.006283185),____) for i in range(1000)])),0)
         self.__dots=np.concatenate((self.__dots, np.array([(0, i*__, i*__) for i in range(1000)]+[(i*__,0, i*__) for i in range(1000)]+[(i*__,0,___) for i in range(1000)]+[(0, i*__, ___) for i in range(1000)])),0)
         
-        self.__colors=np.concatenate((self.__colors,np.array(((0,0,0),)*9000)),0)
+        self.__colors=np.concatenate((self.__colors,np.array(((0,0,0),)*11000)),0)
         
         self.ply.points=o3d.utility.Vector3dVector(self.__dots)
         self.ply.colors=o3d.utility.Vector3dVector(self.__colors)
